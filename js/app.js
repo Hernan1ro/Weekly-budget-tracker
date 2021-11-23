@@ -73,8 +73,8 @@ function preguntarPresupuesto() {
 function validarInputs(event) {
   event.preventDefault();
   const cantidad = document.querySelector("#cantidad").value;
-  const nombreGasto = document.querySelector("#gasto").value;
-  if (cantidad === "" || nombreGasto === "") {
+  const nombre = document.querySelector("#gasto").value;
+  if (cantidad === "" || nombre === "") {
     ui.imprimirAlerta("Los campos deben estar llenos", "error");
     return;
   } else if (isNaN(cantidad)) {
@@ -83,8 +83,9 @@ function validarInputs(event) {
   }
 
   //Crear objeto gasto
-  const gasto = { nombreGasto, cantidad, id: Date.now() };
+  const gasto = { nombre, cantidad, id: Date.now() };
   presupuesto.generarGasto(gasto);
   // Mostrar gasto introducido exitosamente
   ui.imprimirAlerta("Nuevo gasto agreagado", "success");
+  formulario.reset();
 }
