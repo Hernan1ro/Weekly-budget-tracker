@@ -25,7 +25,6 @@ class Presupuesto {
 class UI {
   insertarPresupuesto(budget) {
     const { presupuesto, restante } = budget;
-    console.log(presupuesto, restante);
     document.querySelector("#total").textContent = presupuesto;
     document.querySelector("#restante").textContent = restante;
   }
@@ -44,6 +43,32 @@ class UI {
     setTimeout(() => {
       divMessage.remove();
     }, 3000);
+  }
+  imprimirLista(gastos) {
+    this.limpiarListaHtml();
+    gastos.forEach((gasto) => {
+      //Limpiar el html
+      const { nombre, cantidad, id } = gasto;
+      //Crear LI
+      const li = document.createElement("li");
+      li.className =
+        "list-group-item d-flex justify-content-between align-items-center";
+      li.dataset.id = id;
+      //Agregat el Html al li
+      li.innerHTML = `${nombre}<span class="badge badge-primary badge-pill">$${cantidad}</span>`;
+      //Boton para borrar el gasto
+      const button = document.createElement("button");
+      button.classList.add("btn", "btn-danger", "borrar-gasto");
+      button.innerHTML = "Borrar &times";
+      li.appendChild(button);
+      //Agregar el html
+      gastoLista.appendChild(li);
+    });
+  }
+  limpiarListaHtml() {
+    while (gastoLista.firstChild) {
+      gastoLista.removeChild(gastoLista.firstChild);
+    }
   }
 }
 
@@ -88,4 +113,8 @@ function validarInputs(event) {
   // Mostrar gasto introducido exitosamente
   ui.imprimirAlerta("Nuevo gasto agreagado", "success");
   formulario.reset();
+  // Agregaral Hmtl la lista de los gastos
+  const { gastos } = presupuesto;
+
+  ui.imprimirLista(gastos);
 }
