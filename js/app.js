@@ -1,4 +1,5 @@
-// selectors and variables
+//--------------------------------- selectors and variables ------------------------------------------//
+
 const formulario = document.querySelector("#agregar-gasto");
 const gastoLista = document.querySelector("#gastos ul");
 // events
@@ -8,12 +9,17 @@ function eventListener() {
   window.addEventListener("DOMContentLoaded", preguntarPresupuesto);
   formulario.addEventListener("submit", validarInputs);
 }
-// classes
+//--------------------------------- classses ------------------------------------------//
+
 class Presupuesto {
   constructor(presupuesto) {
     this.presupuesto = presupuesto;
     this.restante = presupuesto;
     this.gastos = [];
+  }
+  generarGasto(gasto) {
+    this.gastos = [...this.gastos, gasto];
+    console.log(this.gastos);
   }
 }
 class UI {
@@ -40,10 +46,13 @@ class UI {
     }, 3000);
   }
 }
+
+//----- Instanciación de las clase ----- //
+
 let ui = new UI();
 let presupuesto;
 
-// functions
+//--------------------------------- functions ------------------------------------------//
 
 function preguntarPresupuesto() {
   const presupuestoUsuario = prompt("Cual es tu presupuesto nigga?");
@@ -73,5 +82,9 @@ function validarInputs(event) {
     return;
   }
 
+  //Crear objeto gasto
+  const gasto = { nombreGasto, cantidad, id: Date.now() };
+  presupuesto.generarGasto(gasto);
+  // Mostrar gasto introducido exitosamente
   ui.imprimirAlerta("Nuevo gasto agreagado", "success");
 }
