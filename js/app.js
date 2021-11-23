@@ -8,18 +8,29 @@ function eventListener() {
   window.addEventListener("DOMContentLoaded", preguntarPresupuesto);
 }
 // classes
+class Presupuesto {
+  constructor(presupuesto) {
+    this.presupuesto = presupuesto;
+    this.restante = presupuesto;
+    this.gastos = [];
+  }
+}
+class UI {}
+let ui = new UI();
+let presupuesto;
 
 // functions
 
 function preguntarPresupuesto() {
-  const presupuesto = prompt("Cual es tu presupuesto nigga?");
+  const presupuestoUsuario = prompt("Cual es tu presupuesto nigga?");
   if (
-    presupuesto === "" ||
-    presupuesto <= 0 ||
-    isNaN(presupuesto) ||
-    presupuesto === null
+    presupuestoUsuario === "" ||
+    presupuestoUsuario <= 0 ||
+    isNaN(presupuestoUsuario) ||
+    presupuestoUsuario === null
   ) {
     window.location.reload();
   }
+  presupuesto = new Presupuesto(Number(presupuestoUsuario));
   console.log(presupuesto);
 }
