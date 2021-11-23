@@ -120,7 +120,7 @@ function validarInputs(event) {
     return;
   }
 
-  //Crear objeto gasto
+  //Crear objeto gasto//
   const gasto = { nombre, cantidad, id: Date.now() };
   presupuesto.generarGasto(gasto);
   // Mostrar gasto introducido exitosamente
