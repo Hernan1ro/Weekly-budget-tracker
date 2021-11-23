@@ -15,7 +15,14 @@ class Presupuesto {
     this.gastos = [];
   }
 }
-class UI {}
+class UI {
+  insertarPresupuesto(budget) {
+    const { presupuesto, restante } = budget;
+    console.log(presupuesto, restante);
+    document.querySelector("#total").textContent = presupuesto;
+    document.querySelector("#restante").textContent = restante;
+  }
+}
 let ui = new UI();
 let presupuesto;
 
@@ -32,5 +39,6 @@ function preguntarPresupuesto() {
     window.location.reload();
   }
   presupuesto = new Presupuesto(Number(presupuestoUsuario));
-  console.log(presupuesto);
+  // console.log(presupuesto);
+  ui.insertarPresupuesto(presupuesto);
 }
