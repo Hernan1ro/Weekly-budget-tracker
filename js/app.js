@@ -6,6 +6,7 @@ eventListener();
 
 function eventListener() {
   window.addEventListener("DOMContentLoaded", preguntarPresupuesto);
+  formulario.addEventListener("submit", validarInputs);
 }
 // classes
 class Presupuesto {
@@ -21,6 +22,22 @@ class UI {
     console.log(presupuesto, restante);
     document.querySelector("#total").textContent = presupuesto;
     document.querySelector("#restante").textContent = restante;
+  }
+  imprimirAlerta(mensaje, tipo) {
+    const contenidoPrimario = document.querySelector(".primario");
+    const divMessage = document.createElement("div");
+    divMessage.classList.add("alert", "text-center");
+    if (tipo === "error") {
+      divMessage.classList.add("alert-danger");
+    } else {
+      divMessage.classList.add("alert-success");
+    }
+    divMessage.innerText = mensaje;
+    contenidoPrimario.insertBefore(divMessage, formulario);
+
+    setTimeout(() => {
+      divMessage.remove();
+    }, 3000);
   }
 }
 let ui = new UI();
@@ -39,6 +56,22 @@ function preguntarPresupuesto() {
     window.location.reload();
   }
   presupuesto = new Presupuesto(Number(presupuestoUsuario));
-  // console.log(presupuesto);
+  // Mostrar presupuesto en pantalla
   ui.insertarPresupuesto(presupuesto);
+}
+
+// Verificar inputs
+function validarInputs(event) {
+  event.preventDefault();
+  const cantidad = document.querySelector("#cantidad").value;
+  const nombreGasto = document.querySelector("#gasto").value;
+  if (cantidad === "" || nombreGasto === "") {
+    ui.imprimirAlerta("Los campos deben estar llenos", "error");
+    return;
+  } else if (isNaN(cantidad)) {
+    ui.imprimirAlerta("La cantidad insertada no es valida", "error");
+    return;
+  }
+
+  ui.imprimirAlerta("Nuevo gasto agreagado", "success");
 }
