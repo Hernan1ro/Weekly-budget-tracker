@@ -48,8 +48,10 @@ class UI {
     divMessage.innerText = mensaje;
     contenidoPrimario.insertBefore(divMessage, formulario);
 
+    formulario.querySelector('button[type="submit"]').disabled = true;
     setTimeout(() => {
       divMessage.remove();
+      formulario.querySelector('button[type="submit"]').disabled = false;
     }, 3000);
   }
   imprimirLista(gastos) {
@@ -82,6 +84,24 @@ class UI {
     const restanteNeto = document.querySelector("#restante");
     // const presupuesto = document.querySelector("#presupuesto");
     restanteNeto.innerText = restante;
+  }
+
+  // validar el gasto porcentual del presupuesto
+  validarRestante(Presupuesto) {
+    const { restante, presupuesto } = Presupuesto;
+    const divRestante = document.querySelector(".restante");
+    if (presupuesto / 4 > restante) {
+      console.log("Te has gastado más del 75%");
+      divRestante.classList.remove("alert-success", "alert-warning");
+      divRestante.classList.add("alert-danger");
+    } else if (presupuesto / 2 > restante) {
+      console.log("Te has gastado más del 50%");
+      divRestante.classList.remove("alert-success");
+      divRestante.classList.add("alert-warning");
+    }
+    if (restante <= 0) {
+      this.imprimirAlerta("Presupuesto insuficiente", "error");
+    }
   }
 }
 
@@ -131,4 +151,5 @@ function validarInputs(event) {
 
   ui.imprimirLista(gastos);
   ui.imprimirRestante(restante);
+  ui.validarRestante(presupuesto);
 }
