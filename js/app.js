@@ -29,6 +29,10 @@ class Presupuesto {
     this.restante = this.presupuesto - totalGastado;
     console.log(this.restante);
   }
+  borrarGasto(id) {
+    this.gastos = this.gastos.filter((gasto) => gasto.id !== id);
+    this.calcularRestante();
+  }
 }
 class UI {
   insertarPresupuesto(budget) {
@@ -70,6 +74,9 @@ class UI {
       const button = document.createElement("button");
       button.classList.add("btn", "btn-danger", "borrar-gasto");
       button.innerHTML = "Borrar &times";
+      button.onclick = () => {
+        borrarGasto(id);
+      };
       li.appendChild(button);
       //Agregar el html
       gastoLista.appendChild(li);
@@ -96,8 +103,11 @@ class UI {
       divRestante.classList.add("alert-danger");
     } else if (presupuesto / 2 > restante) {
       console.log("Te has gastado más del 50%");
-      divRestante.classList.remove("alert-success");
+      divRestante.classList.remove("alert-success", "alert-danger");
       divRestante.classList.add("alert-warning");
+    } else {
+      divRestante.classList.remove("alert-danger", "alert-warning");
+      divRestante.classList.add("alert-success");
     }
     if (restante <= 0) {
       this.imprimirAlerta("Presupuesto insuficiente", "error");
@@ -149,6 +159,14 @@ function validarInputs(event) {
   // Agregaral Hmtl la lista de los gastos
   const { gastos, restante } = presupuesto;
 
+  ui.imprimirLista(gastos);
+  ui.imprimirRestante(restante);
+  ui.validarRestante(presupuesto);
+}
+
+function borrarGasto(id) {
+  presupuesto.borrarGasto(id);
+  const { gastos, restante } = presupuesto;
   ui.imprimirLista(gastos);
   ui.imprimirRestante(restante);
   ui.validarRestante(presupuesto);
