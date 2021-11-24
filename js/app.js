@@ -27,7 +27,6 @@ class Presupuesto {
       0
     );
     this.restante = this.presupuesto - totalGastado;
-    console.log(this.restante);
   }
   borrarGasto(id) {
     this.gastos = this.gastos.filter((gasto) => gasto.id !== id);
@@ -98,11 +97,9 @@ class UI {
     const { restante, presupuesto } = Presupuesto;
     const divRestante = document.querySelector(".restante");
     if (presupuesto / 4 > restante) {
-      console.log("Te has gastado más del 75%");
       divRestante.classList.remove("alert-success", "alert-warning");
       divRestante.classList.add("alert-danger");
     } else if (presupuesto / 2 > restante) {
-      console.log("Te has gastado más del 50%");
       divRestante.classList.remove("alert-success", "alert-danger");
       divRestante.classList.add("alert-warning");
     } else {
