@@ -120,7 +120,7 @@ let presupuesto;
 //--------------------------------- functions ------------------------------------------//
 
 function preguntarPresupuesto() {
-  const presupuestoUsuario = prompt("Cual es tu presupuesto nigga?");
+  const presupuestoUsuario = prompt("¿Cual es tu presupuesto?");
   if (
     presupuestoUsuario === "" ||
     presupuestoUsuario <= 0 ||
